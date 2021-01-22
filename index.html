@@ -1,0 +1,225 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <style>
+        button {
+            width: 50px;
+            height: 50px;
+            border: 1px, solid, black;
+            -webkit-appearance: none;
+            box-shadow: none;
+            outline: none;
+            border-radius: 0;
+
+
+        }
+
+        /* body {
+            background-color: linen;
+        }
+
+        h1 {
+            color: maroon;
+            margin-left: 40px;
+        } */
+    </style>
+    <meta charset="utf-8">
+
+    <!-- <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint"> -->
+
+
+</head>
+
+
+
+
+<body>
+    <input checked type="checkbox" id="myCheck" onclick="ss()">
+    <br>
+    <button type="button" onClick="setCurrent(['r','r','r','r'])" style="background: red;">
+    </button>
+    <button type="button" onClick="setCurrent(['w','w','w','w'])" style="background: white;">
+    </button>
+    <button type="button" onClick="setCurrent(['b','b','b','b'])" style="background: blue;">
+    </button>
+    <button type="button" onClick="setCurrent(['y','y','y','y'])" style="background: yellow;">
+    </button>
+
+    <BR>
+    <button type="button" onClick="setCurrent(['r','r','w','w'])"
+        style="  background: linear-gradient(to right bottom, #ff0000 50%, #ffffff 50%);">
+    </button>
+    <button type="button" onClick="setCurrent(['r','w','r','w'])"
+        style="  background: linear-gradient(to left bottom, #ff0000 50%, #ffffff 50%);">
+
+    </button>
+    <button type="button" onClick="setCurrent(['w','w','r','r'])"
+        style="  background: linear-gradient(to right bottom, #ffffff 50%, #ff0000 50%);">
+    </button>
+    <button type="button" onClick="setCurrent(['w','r','w','r'])"
+        style="  background: linear-gradient(to left bottom, #ffffff 50%, #ff0000 50%);">
+
+    </button>
+    <BR>
+    <button type="button" onClick="setCurrent(['b','b','y','y'])"
+        style="  background: linear-gradient(to right bottom, #0000ff 50%, #ffff00 50%);">
+    </button>
+    <button type="button" onClick="setCurrent(['b','y','b','y'])"
+        style="  background: linear-gradient(to left bottom, #0000ff 50%, #ffff00 50%);">
+
+    </button>
+    <button type="button" onClick="setCurrent(['y','y','b','b'])"
+        style="  background: linear-gradient(to right bottom, #ffff00 50%, #0000ff 50%);">
+    </button>
+    <button type="button" onClick="setCurrent(['y','b','y','b'])"
+        style="  background: linear-gradient(to left bottom, #ffff00 50%, #0000ff 50%);">
+
+    </button>
+    <br>
+    <br>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+
+    <!-- <script src="js/scripts.js">
+    
+    
+    </script> -->
+    <script>
+        var pal = {
+            "r": "#FF0000",
+            "w": "#FFFFFF",
+            "b": "#0000FF",
+            "y": "#FFFF00"
+        };
+
+        function setCurrent(colors) {
+            current = [pal[colors[0]], pal[colors[1]], pal[colors[2]], pal[colors[3]]]
+        }
+
+        var current = ["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"];
+
+        var grid = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+
+        for (let g = 0; g < grid.length; g++) {
+            grid[g] = current;
+        }
+
+        var current = [pal["r"], pal["r"], pal["r"], pal["r"]];
+
+
+        var c = document.getElementById("myCanvas");
+        // var ctx = c.getContext("2d");
+        // ctx.moveTo(0, 0);
+        // ctx.lineTo(1000, 1000);
+        // ctx.stroke();
+        size = 500;
+        var squareSize = size / 4;
+        drawSquare(c, 0, 0, current);
+        ss();
+        function ss() {
+            drawAll(c, grid);
+        }
+
+        function drawAll(canvas, grid) {
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < grid.length; i++) {
+                const colors = grid[i];
+                drawSquare(canvas, (i % 4), Math.floor(i / 4), colors);
+
+            }
+            if (document.getElementById("myCheck").checked) {
+                drawGrid(c);
+            }
+
+        }
+
+        function drawGrid(canvas) {
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#000000"
+            ctx.strokeStyle = "#000000"
+
+            for (let i = 0; i <= size; i += squareSize) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, size);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(size, i);
+                ctx.stroke();
+            }
+        }
+
+        function drawSquare(canvas, x, y, color) {
+            var ctx = canvas.getContext("2d");
+            var half = squareSize / 2;
+            x = x * squareSize;
+            y = y * squareSize;
+
+            ctx.fillStyle = color[0];
+            ctx.strokeStyle = color[0];
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + squareSize, y);
+            ctx.lineTo(x + half, y + half);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = color[1];
+            ctx.strokeStyle = color[1];
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + half, y + half);
+            ctx.lineTo(x, y + squareSize);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = color[2];
+            ctx.strokeStyle = color[2];
+            ctx.beginPath();
+            ctx.lineTo(x + squareSize, y);
+            ctx.lineTo(x + squareSize, y + squareSize);
+            ctx.lineTo(x + half, y + half);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = color[3];
+            ctx.strokeStyle = color[3];
+            ctx.beginPath();
+            ctx.lineTo(x + squareSize, y + squareSize);
+            ctx.lineTo(x, y + squareSize);
+            ctx.lineTo(x + half, y + half);
+            ctx.fill();
+            ctx.stroke();
+
+        }
+
+
+        function getCursorPosition(canvas, event) {
+            const rect = canvas.getBoundingClientRect()
+            const x = event.clientX - rect.left
+            const y = event.clientY - rect.top
+            console.log("x: " + x + " y: " + y)
+            const xx = Math.floor(x / squareSize)
+            const yy = Math.floor(y / squareSize)
+
+            grid[yy * 4 + xx] = current;
+            drawAll(canvas, grid);
+
+
+        }
+
+        const canvas = document.querySelector('canvas')
+        canvas.addEventListener('mousedown', function (e) {
+            getCursorPosition(canvas, e)
+        })
+
+    </script>
+</body>
+
+</html>
