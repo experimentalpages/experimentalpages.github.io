@@ -43,42 +43,44 @@
 <body>
     <input checked type="checkbox" id="myCheck" onclick="ss()">
     <br>
-    <button type="button" onClick="setCurrent(['r','r','r','r'])" style="background: #c12222;">
+    <button type="button" onClick="setCurrent(['r','r','r','r'],this)" style="background: #c12222;">
     </button>
-    <button type="button" onClick="setCurrent(['w','w','w','w'])" style="background: white;">
+    <button type="button" onClick="setCurrent(['w','w','w','w'],this)" style="background: white;">
     </button>
-    <button type="button" onClick="setCurrent(['b','b','b','b'])" style="background: #143271;">
+    <button type="button" onClick="setCurrent(['b','b','b','b'],this)" style="background: #143271;">
     </button>
-    <button type="button" onClick="setCurrent(['y','y','y','y'])" style="background: #febc00;">
+    <button type="button" onClick="setCurrent(['y','y','y','y'],this)" style="background: #febc00;">
+    </button>
+    <button id="showi" type="button"  style="background: #febc00;">
     </button>
 
     <BR>
-    <button type="button" onClick="setCurrent(['r','r','w','w'])"
+    <button type="button" onClick="setCurrent(['r','r','w','w'],this)"
         style="  background: linear-gradient(to right bottom, #c12222 50%, #ffffff 50%);">
     </button>
-    <button type="button" onClick="setCurrent(['r','w','r','w'])"
+    <button type="button" onClick="setCurrent(['r','w','r','w'],this)"
         style="  background: linear-gradient(to left bottom, #c12222 50%, #ffffff 50%);">
 
     </button>
-    <button type="button" onClick="setCurrent(['w','w','r','r'])"
+    <button type="button" onClick="setCurrent(['w','w','r','r'],this)"
         style="  background: linear-gradient(to right bottom, #ffffff 50%, #c12222 50%);">
     </button>
-    <button type="button" onClick="setCurrent(['w','r','w','r'])"
+    <button type="button" onClick="setCurrent(['w','r','w','r'],this)"
         style="  background: linear-gradient(to left bottom, #ffffff 50%, #c12222 50%);">
 
     </button>
     <BR>
-    <button type="button" onClick="setCurrent(['b','b','y','y'])"
+    <button type="button" onClick="setCurrent(['b','b','y','y'],this)"
         style="  background: linear-gradient(to right bottom, #143271 50%, #febc00 50%);">
     </button>
-    <button type="button" onClick="setCurrent(['b','y','b','y'])"
+    <button type="button" onClick="setCurrent(['b','y','b','y'],this)"
         style="  background: linear-gradient(to left bottom, #143271 50%, #febc00 50%);">
 
     </button>
-    <button type="button" onClick="setCurrent(['y','y','b','b'])"
+    <button type="button" onClick="setCurrent(['y','y','b','b'],this)"
         style="  background: linear-gradient(to right bottom, #febc00 50%, #143271 50%);">
     </button>
-    <button type="button" onClick="setCurrent(['y','b','y','b'])"
+    <button type="button" onClick="setCurrent(['y','b','y','b'],this)"
         style="  background: linear-gradient(to left bottom, #febc00 50%, #143271 50%);">
 
     </button>
@@ -98,8 +100,10 @@
             "y": "#febc00"
         };
 
-        function setCurrent(colors) {
+        function setCurrent(colors,butt) {
+            console.log(butt);
             current = [pal[colors[0]], pal[colors[1]], pal[colors[2]], pal[colors[3]]]
+            document.getElementById("showi").style.background = butt.style.background;
         }
 
         var current = ["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"];
